@@ -16,6 +16,17 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@modules/*": ["src/modules/*"],
+      "@services/*": ["src/services/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@prisma/*": ["src/prisma/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
