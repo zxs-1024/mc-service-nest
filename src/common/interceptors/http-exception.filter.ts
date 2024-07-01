@@ -9,7 +9,7 @@ import {
   PrismaClientValidationError,
 } from '@prisma/client/runtime/library';
 import { Response } from 'express';
-import { Code } from '../codes';
+import { Code } from '../code';
 import { CoreResponse } from './core.response';
 
 @Catch()

@@ -1,5 +1,5 @@
-import { Nullable } from '@core/types/common';
-import { Code } from '../codes';
+import { Nullable } from '@common/types/common';
+import { Code } from '../code';
 
 export class CoreResponse<TData> {
   readonly code: number;

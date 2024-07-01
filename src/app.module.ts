@@ -1,9 +1,11 @@
-import { LogsMiddleware } from '@middlewares/logs.middleware';
+import { LogsMiddleware } from '@common/middlewares/logs.middleware';
 import { AuthModule } from '@modules/auth/auth.module';
-import { UsersModule } from '@modules/users/users.module';
+import { UserModule } from '@modules/user/user.module';
+import { HttpModule } from '@nestjs/axios';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from '@prisma/prisma.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -11,8 +13,10 @@ import { PrismaModule } from '@prisma/prisma.module';
       isGlobal: true,
     }),
     PrismaModule,
-    UsersModule,
+    HttpModule,
+    UserModule,
     AuthModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [],
