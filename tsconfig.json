@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@core/*": ["src/core/*"],
-      "@middlewares/*": ["src/middlewares/*"],
+      "@middlewares/*": ["src/core/middlewares/*"],
       "@modules/*": ["src/modules/*"],
       "@services/*": ["src/services/*"],
       "@controllers/*": ["src/controllers/*"],
