@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../prisma/prisma.service';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
 
-describe('UsersController', () => {
-  let controller: UsersController;
-  let service: UsersService;
+describe('UserController', () => {
+  let controller: UserController;
+  let service: UserService;
 
   const mockPrismaService = {
     user: {
@@ -18,9 +18,9 @@ describe('UsersController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [UsersController],
+      controllers: [UserController],
       providers: [
-        UsersService,
+        UserService,
         {
           provide: PrismaService,
           useValue: mockPrismaService,
@@ -28,8 +28,8 @@ describe('UsersController', () => {
       ],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
-    service = module.get<UsersService>(UsersService);
+    controller = module.get<UserController>(UserController);
+    service = module.get<UserService>(UserService);
   });
 
   it('should be defined', () => {

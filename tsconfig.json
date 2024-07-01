@@ -5,6 +5,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
@@ -18,13 +19,13 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@core/*": ["src/core/*"],
-      "@middlewares/*": ["src/core/middlewares/*"],
+      "@common/*": ["src/common/*"],
+      "@utils/*": ["src/common/utils/*"],
+      "@middlewares/*": ["src/common/middlewares/*"],
+      "@services/*": ["src/common/services/*"],
+      "@controllers/*": ["src/common/controllers/*"],
       "@modules/*": ["src/modules/*"],
-      "@services/*": ["src/services/*"],
-      "@controllers/*": ["src/controllers/*"],
-      "@prisma/*": ["src/prisma/*"],
-      "@utils/*": ["src/utils/*"]
+      "@prisma/*": ["src/prisma/*"]
     }
   },
   "include": ["src/**/*"],
