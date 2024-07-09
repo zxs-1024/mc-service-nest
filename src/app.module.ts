@@ -6,7 +6,6 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from '@prisma/prisma.module';
 import { CommonModule } from './common/common.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot({

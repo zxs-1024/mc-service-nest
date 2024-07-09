@@ -1,11 +1,17 @@
 import { HttpExceptionFilter } from '@common/interceptors/http-exception.filter';
 import { ResponseInterceptor } from '@common/interceptors/response.interceptor';
+import { winstonLogger } from '@common/logger/winston-logger';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { WinstonModule } from 'nest-winston';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger({
+      instance: winstonLogger,
+    }),
+  });
 
   // 启用 cors
   app.enableCors({

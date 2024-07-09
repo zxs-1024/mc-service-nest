@@ -39,6 +39,7 @@
     "dotenv": "^16.4.5",
     "hashids": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
+    "nest-winston": "^1.10.0",
     "nestjs-prisma": "^0.23.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -46,7 +47,9 @@
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.1",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
