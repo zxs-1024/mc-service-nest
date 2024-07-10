@@ -1,4 +1,3 @@
-import { HttpExceptionFilter } from '@common/interceptors/http-exception.filter';
 import { ResponseInterceptor } from '@common/interceptors/response.interceptor';
 import { winstonLogger } from '@common/logger/winston-logger';
 import { NestFactory } from '@nestjs/core';
@@ -22,9 +21,6 @@ async function bootstrap() {
 
   // 应用全局拦截器 new ErrorInterceptor()
   app.useGlobalInterceptors(new ResponseInterceptor());
-
-  // 应用全局异常过滤器
-  app.useGlobalFilters(new HttpExceptionFilter());
 
   // TODO: 加上守卫
   // app.useGlobalGuards(new RoleGuard());
