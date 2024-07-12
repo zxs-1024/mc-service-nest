@@ -1,5 +1,5 @@
 import { HttpExceptionFilter } from '@common/filters/http-exception.filter';
-import { winstonLogger } from '@common/logger/winston-logger';
+import { LoggerModule } from '@common/logger/logger.module';
 import { LogsMiddleware } from '@common/middlewares/logs.middleware';
 import { AuthModule } from '@modules/auth/auth.module';
 import { UserModule } from '@modules/user/user.module';
@@ -8,7 +8,6 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { PrismaModule } from '@prisma/prisma.module';
-import { WinstonModule } from 'nest-winston';
 import { CommonModule } from './common/common.module';
 
 @Module({
@@ -16,10 +15,8 @@ import { CommonModule } from './common/common.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    WinstonModule.forRoot({
-      instance: winstonLogger,
-    }),
     PrismaModule,
+    LoggerModule,
     HttpModule,
     UserModule,
     AuthModule,

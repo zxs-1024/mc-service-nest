@@ -1,24 +1,22 @@
 import { ResponseInterceptor } from '@common/interceptors/response.interceptor';
-import { winstonLogger } from '@common/logger/winston-logger';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { WinstonModule } from 'nest-winston';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: WinstonModule.createLogger({
-      instance: winstonLogger,
-    }),
-  });
+  const app = await NestFactory.create(AppModule);
+
+  // 环境变量
+  const configService = app.get(ConfigService);
+  console.log('NODE_ENV: ', process.env.NODE_ENV);
 
   // 启用 cors
   app.enableCors({
-    origin: '*', // TODO: 允许所有来源，根据环境变量配置
+    origin: configService.get<string>('CORS_ORIGIN', '*'),
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Accept',
   });
-
   // 应用全局拦截器 new ErrorInterceptor()
   app.useGlobalInterceptors(new ResponseInterceptor());
 
@@ -27,7 +25,7 @@ async function bootstrap() {
 
   // 配置 Swagger
   const config = new DocumentBuilder()
-    // .addBearerAuth()
+    .addBearerAuth()
     .setTitle('NestJS API')
     .setDescription('The NestJS API description')
     .setVersion('1.0')

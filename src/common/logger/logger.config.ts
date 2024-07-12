@@ -1,13 +1,9 @@
-import { createLogger, format, transports } from 'winston';
+import * as winston from 'winston';
+import { format, transports } from 'winston';
 import 'winston-daily-rotate-file';
 
-export const winstonLogger = createLogger({
-  level: 'info',
-  format: format.combine(
-    format.timestamp(),
-    format.errors({ stack: true }),
-    format.json(),
-  ),
+export const winstonConfig: winston.LoggerOptions = {
+  level: process.env.LOG_LEVEL || 'info',
   transports: [
     new transports.DailyRotateFile({
       filename: 'logs/%DATE%-error.log',
@@ -38,6 +34,7 @@ export const winstonLogger = createLogger({
     new transports.Console({
       format: format.combine(
         format.errors({ stack: true }),
+        format.colorize({ all: true }),
         format.timestamp(),
         format.printf(({ timestamp, level, message, stack }) => {
           return stack
@@ -47,4 +44,4 @@ export const winstonLogger = createLogger({
       ),
     }),
   ],
-});
+};
