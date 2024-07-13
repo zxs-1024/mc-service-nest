@@ -10,6 +10,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PrismaModule } from '@prisma/prisma.module';
 import { CommonModule } from './common/common.module';
+import { ArticlesModule } from './modules/articles/articles.module';
 import { TaskService } from './tasks/task.service';
 
 @Module({
@@ -25,6 +26,7 @@ import { TaskService } from './tasks/task.service';
     UserModule,
     AuthModule,
     CommonModule,
+    ArticlesModule,
   ],
   controllers: [],
   providers: [

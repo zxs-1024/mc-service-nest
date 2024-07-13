@@ -23,7 +23,6 @@ export class UserController {
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'Return all users.' })
   findAll(): Promise<User[]> {
-    // throw new Error('Method not implemented.');
     return this.usersService.findAll();
   }
 

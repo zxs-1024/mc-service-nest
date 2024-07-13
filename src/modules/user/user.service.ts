@@ -7,7 +7,6 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<User[]> {
-    throw new Error('Method not implemented.');
     return this.prisma.user.findMany();
   }
 
