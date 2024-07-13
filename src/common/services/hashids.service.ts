@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import HashIds from 'hashids';
+
 @Injectable()
 export class HashidsService {
   private hashids: HashIds;

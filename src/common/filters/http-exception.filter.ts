@@ -3,19 +3,24 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
+  Inject,
 } from '@nestjs/common';
 import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
 } from '@prisma/client/runtime/library';
-import { Response } from 'express';
+import type { Request, Response } from 'express';
+import { Logger } from 'winston';
 import { Code } from '../code';
-import { CoreResponse } from './core.response';
-
+import { CoreResponse } from '../interceptors/core.response';
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
+  constructor(@Inject('winston') private readonly logger: Logger) {}
+
   public catch(error: Error, host: ArgumentsHost): void {
-    const response: Response = host.switchToHttp().getResponse<Response>();
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
 
     let errorResponse: CoreResponse<unknown> = CoreResponse.error(
       Code.INTERNAL_ERROR.code,
@@ -23,6 +28,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
     );
 
     errorResponse = this.handleNestError(error, errorResponse);
+
+    // 记录错误日志
+    const { method, originalUrl, body, query, params, ip } = request;
+    console.log('记录错误日志 errorResponse: ', errorResponse);
+    this.logger.error(error.message, {
+      req: { method, originalUrl, body, query, params, ip },
+      error,
+    });
 
     response.json(errorResponse);
   }
