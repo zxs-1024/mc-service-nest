@@ -19,7 +19,6 @@ import { TaskService } from './tasks/task.service';
       isGlobal: true,
     }),
     ScheduleModule.forRoot(),
-
     PrismaModule,
     LoggerModule,
     HttpModule,

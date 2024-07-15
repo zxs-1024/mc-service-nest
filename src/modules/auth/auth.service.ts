@@ -1,21 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@prisma/client';
+import { PrismaService } from '@prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly prisma: PrismaService,
+  ) {}
 
-  async generateToken(user: any) {
-    const payload = { username: user.username, sub: user.userId };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
-
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.findUser(username);
-    if (user && (await bcrypt.compare(pass, user.password))) {
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    if (user && (await bcrypt.compare(password, user.password))) {
       const { password, ...result } = user;
       console.log('password: ', password);
       return result;
@@ -23,15 +21,25 @@ export class AuthService {
     return null;
   }
 
-  async findUser(username: string): Promise<any> {
-    // 这里模拟查找用户，你可以用数据库替换这个逻辑
-    const users = [
-      {
-        userId: 1,
-        username: 'test',
-        password: await bcrypt.hash('password', 10),
+  async login(user: any) {
+    const payload = { email: user.email, sub: user.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
+
+  async register(userData: {
+    email: string;
+    password: string;
+    name: string;
+  }): Promise<User> {
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    return this.prisma.user.create({
+      data: {
+        email: userData.email,
+        password: hashedPassword,
+        name: userData.name,
       },
-    ];
-    return users.find((user) => user.username === username);
+    });
   }
 }
